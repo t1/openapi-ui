@@ -1,0 +1,44 @@
+= OpenAPI-UI
+
+Pre-generate a UI from OpenAPI documents, nicer than https://swagger.io[Swagger UI], i.e. faster, more compact and keyboard friendly... and with a automatic dark mode 😁.
+Beyond the basic `index.html`, it generates the dynamic parts as html snippets that are loaded via https://htmx.org[htmx].
+
+The values for parameters and request bodies are stored in the local storage of your browser, so they are preserved between page reloads... and the same parameters can be reused in different paths.
+
+== Status
+
+This is currently a mere proof of concept.
+
+To make it a MVP, it should support:
+
+* query parameters
+* tags
+* authentication beyond the browser's basic auth
+* accessibility tools
+* parameter change broadcast (i.e. update all fields with the same name while typing)
+* and (most of all) run as a maven plugin!
+
+To make it a real product, it should:
+
+* support the full OpenAPI spec
+* provide XML examples
+* run as a https://quarkus.io[Quarkus] extension
+
+== Running the demo
+
+=== Quarkus
+
+* `mvn install`
+* `cd openapi-ui.test`
+* `mvn quarkus:dev`
+* go to http://localhost:8080/openapi/ui
+
+=== Jakarta
+
+The test application running on a Jakarta Application Server, e.g. WildFly, follow these steps:
+
+1. Patch the paths as specified in the comments starting with `// WILDFLY`.
+
+2. In the test module, run `mvn -f war-pom.xml`
+
+3. Direct your browser to http://localhost:8080/api/openapi/ui

@@ -1,0 +1,15 @@
+article.toast {
+    position: absolute;
+    inset: unset;
+    right: 20px;
+}
+
+*:disabled {
+    cursor: default;
+}
+
+/* see https://github.com/jgthms/bulma/pull/3180 */
+select:required, input:required, input:required + .file-cta, textarea:required {
+    border-left-color: var(--bulma-link);
+    border-left-width: 1ex;
+}

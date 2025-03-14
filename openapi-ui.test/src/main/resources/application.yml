@@ -1,0 +1,3 @@
+quarkus:
+  smallrye-openapi:
+    store-schema-directory: target/classes/META-INF/resources
