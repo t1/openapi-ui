@@ -74,7 +74,7 @@ record OpenApiUiPath(URI snippetBase, String pathTemplate, PathItem item) {
     }
 
     AbstractElement<?> closeTag(boolean open) {
-        var tag = tag().id(id() + "-body-close")
+        var tag = tag().id(id() + "-path-close")
                 .content(icon("angle-" + (open ? "down" : "right")));
         if (open) tag.is(HOVERABLE)
                 .on("keyup", """

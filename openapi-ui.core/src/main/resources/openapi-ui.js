@@ -51,14 +51,18 @@ function handleTryoutFetchResponse(response, pathId, startTime) {
                 document.getElementById(pathId + '-body').appendChild(responseArea);
             }
             responseArea.replaceChildren(
-                withChildren(block(), status(response, startTime)),
-                disabledTextAreaBlock(headers.map(header => `${header[0]}: ${header[1]}`).join('\n'), headers.length),
-                disabledTextAreaBlock(text, Math.max(text.split('\n').length, 3)));
+                withChildren(block(), status(response, pathId, startTime)),
+                disabledTextAreaBlock(`${pathId}-response-headers`, headers.map(header => `${header[0]}: ${header[1]}`).join('\n'), headers.length),
+                disabledTextAreaBlock(`${pathId}-response-body`, text, Math.max(text.split('\n').length, 3)));
         })
         .catch(error => {
             console.error(error);
             showToast(error.message, 'danger');
         });
+}
+
+function block() {
+    return createElement('div', {className: 'block'});
 }
 
 async function toText(response) {
@@ -100,14 +104,16 @@ function formatXml(xml) {
     return new XMLSerializer().serializeToString(xsltProcessor.transformToDocument(xmlDoc));
 }
 
-function status(response, startTime) {
+function status(response, pathId, startTime) {
     const duration = (performance.now() - startTime).toFixed(0);
     return withChildren(createElement('div', {className: 'notification',}),
         createElement('div', {
-            className: 'tag is-family-code ' + tagColor(response),
+            id: pathId + '-response-status',
+            className: `tag is-family-code ${tagColor(response)}`,
             textContent: response.status + ' ' + response.statusText
         }),
         createElement('div', {
+            id: pathId + '-response-time',
             className: 'is-family-code is-pulled-right',
             textContent: duration + 'ms'
         }));
@@ -119,18 +125,15 @@ function tagColor(response) {
     return 'is-danger';
 }
 
-function disabledTextAreaBlock(text, rows) {
-    return withChildren(block(), disabledTextArea(text, rows));
+function disabledTextAreaBlock(id, text, rows) {
+    return withChildren(block(), disabledTextArea(id, text, rows));
 }
 
-function block() {
-    return createElement('div', {className: 'block'});
-}
-
-function disabledTextArea(text, rows) {
+function disabledTextArea(id, text, rows) {
     if (rows && rows > 20) rows = 20;
     return withChildren(createElement('div', {className: 'control'}),
         createElement('textarea', {
+            id: id,
             className: 'textarea is-family-code',
             disabled: true,
             textContent: text,

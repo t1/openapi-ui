@@ -62,7 +62,7 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
 
     Tag tag() {
         // tabs would normally be a better choice, but we want them to have colors
-        return method.tag().id(path.pathTemplate() + "-" + method.key())
+        return method.tag().id(path.id() + "-" + method.key())
                 .is(HOVERABLE).tabindex(0)
                 .on("keyup", """
                         switch(event.key) {
@@ -104,7 +104,7 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
         return concat(
                 path.closeTag(true)
                         .attr("hx-get", snippetPath(CLOSED)) // when clicked, replace
-                        .attr("hx-target", "#" + path.id() + "-body" + "-close")
+                        .attr("hx-target", "#" + path.id() + "-path-close")
                         .attr("hx-swap-oob", "true"), // but replace with this directly on load
                 path.deleteBody(), // delete the old body, if it exists
                 messageBody().id(path.id() + "-body")
@@ -123,12 +123,12 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
     }
 
     private String inputValue(Parameter parameter) {
-        return "document.querySelector(`input[name='" + pathParamName(parameter) + "']`).value";
+        return "document.querySelector('input[name=" + pathParamName(parameter) + "]').value";
     }
 
     private String requestBodyInit() {
         if (operation.getRequestBody() == null) return "";
-        return "var textArea = document.getElementById('" + path.id() + "-body-textarea" + "');" +
+        return "var textArea = document.getElementById('" + path.id() + "-request-body" + "');" +
                "var stored = localStorage.getItem(" + requestStoreName() + ");" +
                "textArea.value = stored ? stored : textArea.dataset.example;";
     }
@@ -201,7 +201,7 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
                 level()
                         .left(title(TITLE_LEVEL, "Request Body"))
                         .right(requestContentTypes(requestBody)),
-                textarea().id(path.id() + "-body-textarea")
+                textarea().id(path.id() + "-request-body")
                         .is(CODE)
                         // TODO can this move to bulma-java?
                         .attr("required")
@@ -218,7 +218,7 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
     }
 
     private Select requestContentTypes(RequestBody requestBody) {
-        var select = select(path.id() + "-content-types")
+        var select = select(path.id() + "-request-content-types")
                 .on("keyup", """
                         switch(event.key) {
                             case 'ArrowLeft':
@@ -314,10 +314,10 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
                              "        headers: {" +
                              "            Accept: acceptHeader('" + path.id() + "-accept-media-types')" +
                              ((operation.getRequestBody() == null) ? "" :
-                                     ",   'Content-Type': document.querySelector(`select[name='" + path.id() + "-content-types']`).value") +
+                                     ",   'Content-Type': document.querySelector('select[name=" + path.id() + "-request-content-types]').value") +
                              "        }," +
                              ((operation.getRequestBody() == null) ? "" :
-                                     "body: document.getElementById('" + path.id() + "-body-textarea').value") +
+                                     "body: document.getElementById('" + path.id() + "-request-body').value") +
                              "    }).then(response => {" +
                              "        handleTryoutFetchResponse(response, '" + path.id() + "', startTime)" +
                              "    });" +
@@ -354,7 +354,7 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
                                     if (previousElementSibling) {
                                         previousElementSibling.focus();
                                     } else {
-                                        document.querySelector(`select[name='__ACCEPT_MEDIA_TYPES__']`).focus();
+                                        document.querySelector('select[name=__ACCEPT_MEDIA_TYPES__]').focus();
                                     }
                                     event.stopPropagation();
                                     break;

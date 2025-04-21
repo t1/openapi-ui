@@ -14,9 +14,9 @@ enum CliCodeType {
                         url = url.substring(9);
                         if (!url.startsWith(':')) url = ':' + url; // no port => use ':/path' for port 80/443
                     }
-                    var body = document.getElementById(id + '-body-textarea');
+                    var body = document.getElementById(id + '-request-body');
                     var headers = '"Accept:' + acceptHeader(id + '-accept-media-types') + '"';
-                    var contentTypes = document.querySelector(`select[name='` + id + `-content-types` + `']`);
+                    var contentTypes = document.querySelector('select[name=' + id + '-request-content-types]');
                     if (contentTypes) headers += ' "Content-Type:' + contentTypes.value + '"';
                     return protocol.substring(0, protocol.length - 1)
                         + ' --verbose'
@@ -32,9 +32,9 @@ enum CliCodeType {
         @Override String command() {
             return """
                     var headers = '--header "Accept:' + acceptHeader(id + '-accept-media-types') + '" ';
-                    var contentTypes = document.querySelector(`select[name='` + id + `-content-types` + `']`);
+                    var contentTypes = document.querySelector('select[name=' + id + '-request-content-types]');
                     if (contentTypes) headers += '--header "Content-Type:' + contentTypes.value + '"';
-                    var body = document.getElementById(id + '-body-textarea');
+                    var body = document.getElementById(id + '-request-body');
                     return 'curl --location --include '
                         + (method === 'GET' ? '' : '-X ' + method + ' ')
                         + headers
