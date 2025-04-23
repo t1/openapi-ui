@@ -1,5 +1,7 @@
 = OpenAPI-UI
 
+image::https://github.com/t1/openapi-ui/actions/workflows/maven.yml/badge.svg[Java CI,link=https://github.com/t1/openapi-ui/actions/workflows/maven.yml]
+
 Pre-generate a UI from OpenAPI documents, nicer than https://swagger.io[Swagger UI], i.e. faster, more compact and keyboard friendly... and with a automatic dark mode 😁.
 Beyond the basic `index.html`, it generates the dynamic parts as html snippets that are loaded via https://htmx.org[htmx].
 
