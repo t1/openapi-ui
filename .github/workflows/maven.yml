@@ -19,3 +19,9 @@ jobs:
           -Dexec.classpathScope=test -Dexec.args="install --with-deps webkit"
       - name: Run Tests
         run: mvn test
+      - name: Upload Playwright Trace
+        if: always() # even if tests fail
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-trace
+          path: openapi-ui.test/target/playwright/trace.zip
