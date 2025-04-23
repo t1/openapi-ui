@@ -15,6 +15,6 @@ jobs:
       - name: Build & Install
         run: mvn --batch-mode install -DskipTests --no-transfer-progress
       - name: Install Browsers
-        run: mvn exec:java --errors -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps"
+        run: mvn exec:java --projects=openapi-ui.test --errors -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.classpathScope=test -Dexec.args="install --with-deps"
       - name: Run Tests
         run: mvn test
