@@ -13,7 +13,7 @@ import java.net.URI;
 
 import static jakarta.ws.rs.core.MediaType.TEXT_HTML;
 
-/// The [spec suggests](https://download.eclipse.org/microprofile/microprofile-open-api-4.0/microprofile-openapi-spec-4.0.html#_user_interface)
+/// The [OpenAPI Spec suggests](https://download.eclipse.org/microprofile/microprofile-open-api-4.0/microprofile-openapi-spec-4.0.html#_user_interface)
 /// that an OpenAPI UI should be available at `/openapi/ui`, but at least WildFly returns the OpenAPI document also for sub-paths of `/openapi`.
 @Path("/openapi/ui") // WILDFLY: this works as is only because the `@ApplicationPath` is `/api`
 @Produces(TEXT_HTML)

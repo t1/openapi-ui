@@ -13,8 +13,8 @@ This is currently a mere proof of concept.
 
 To make it a MVP, it should support:
 
-* query parameters
 * tags
+* query parameters
 * authentication beyond the browser's basic auth
 * accessibility tools
 * parameter change broadcast (i.e. update all fields with the same name while typing)

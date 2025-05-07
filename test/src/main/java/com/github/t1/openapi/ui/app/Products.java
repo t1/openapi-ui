@@ -1,4 +1,4 @@
-package com.github.t1.openapi.ui.test;
+package com.github.t1.openapi.ui.app;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;

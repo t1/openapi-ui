@@ -1,4 +1,4 @@
-package com.github.t1.openapi.ui.test;
+package com.github.t1.openapi.ui.app;
 
 import jakarta.json.bind.JsonbException;
 import jakarta.json.stream.JsonParsingException;

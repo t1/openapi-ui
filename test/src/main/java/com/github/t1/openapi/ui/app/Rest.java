@@ -1,4 +1,4 @@
-package com.github.t1.openapi.ui.test;
+package com.github.t1.openapi.ui.app;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

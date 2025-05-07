@@ -19,8 +19,8 @@
     </properties>
 
     <modules>
-        <module>openapi-ui.core</module>
-        <module>openapi-ui.test</module>
+        <module>core</module>
+        <module>test</module>
     </modules>
 
     <build>

@@ -56,7 +56,6 @@ public record OpenApiUiPages(OpenAPI openApi, URI resourceBase, URI snippetBase)
     }
 
     public OpenApiUiFile index() {
-        //noinspection JSUnusedLocalSymbols
         return new OpenApiUiFile(Path.of("index.html"), html(openApi.getInfo().getTitle())
                 .stylesheet(resourceBase.resolve("bulma/css/bulma.css"))
                 .stylesheet(resourceBase.resolve("fortawesome__fontawesome-free/css/all.css"))
