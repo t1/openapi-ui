@@ -31,7 +31,7 @@ To make it a real product, it should:
 === Quarkus
 
 * `mvn install`
-* `cd openapi-ui.test`
+* `cd test`
 * `mvn quarkus:dev`
 * go to http://localhost:8080/openapi/ui
 

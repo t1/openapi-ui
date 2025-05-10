@@ -168,7 +168,7 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
         // should be fixed there
         var field = field().label(safeName(parameter), NORMAL, CODE)
                 .control(input(TEXT).is(CODE).name(pathParamName(parameter))
-                        .required(/*TODO add boolean to bulma-java => parameter.getRequired()*/)
+                        .required(parameter.getRequired())
                         .on("keyup", "{" +
                                      "localStorage.setItem('" + storageKey(parameter) + "', event.target.value);" +
                                      "switch(event.key) {" +
@@ -203,8 +203,7 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
                         .right(requestContentTypes(requestBody)),
                 textarea().id(path.id() + "-request-body")
                         .is(CODE)
-                        // TODO can this move to bulma-java?
-                        .attr("required")
+                        .required()
                         .rows(10)
                         .attr("data-example", requestBodyExample(requestBody))
                         .on("keyup", "localStorage.setItem(" + requestStoreName() + ", event.target.value); " +
@@ -227,8 +226,7 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
                                 break;
                         }
                         """);
-        // TODO can this be pushed into bulma-java?
-        select.contentAs(Element.class).is(CODE).attr("required");
+        select.contentAs(Element.class).is(CODE);
         mediaTypes(requestBody.getContent()).forEach(select::option);
         return select;
     }
@@ -272,8 +270,7 @@ record OpenApiUiOperation(OpenApiUiPath path, Method method, Operation operation
                             """.replace("__CALL_BUTTON__", path.id() + "-call-button"));
             var mediaTypes = mediaTypes(apiResponse.getContent());
             select.multiple(mediaTypes.size());
-            // TODO can this be pushed into bulma-java?
-            select.contentAs(Element.class).is(CODE).attr("required");
+            select.contentAs(Element.class).is(CODE);
             var first = true;
             for (var mediaType : mediaTypes) {
                 select.option(mediaType);

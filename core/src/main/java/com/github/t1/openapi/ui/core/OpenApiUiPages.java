@@ -1,7 +1,6 @@
 package com.github.t1.openapi.ui.core;
 
 import com.github.t1.bulmajava.basic.AbstractElement;
-import com.github.t1.bulmajava.basic.Basic;
 import com.github.t1.bulmajava.basic.Renderable;
 import com.github.t1.bulmajava.components.Message;
 import com.github.t1.bulmajava.elements.Title;
@@ -59,8 +58,7 @@ public record OpenApiUiPages(OpenAPI openApi, URI resourceBase, URI snippetBase)
         return new OpenApiUiFile(Path.of("index.html"), html(openApi.getInfo().getTitle())
                 .stylesheet(resourceBase.resolve("bulma/css/bulma.css"))
                 .stylesheet(resourceBase.resolve("fortawesome__fontawesome-free/css/all.css"))
-                // TODO improve bulma-java
-                .head(Basic.element("style").content(readResource("openapi-ui.css")))
+                .styleElement(readResource("openapi-ui.css"))
                 .script(resourceBase.resolve("htmx.org/dist/htmx.js"))
                 .script(resourceBase.resolve("htmx-ext-debug/debug.js"))
                 .javaScriptCode(CliCodeType.stream()
